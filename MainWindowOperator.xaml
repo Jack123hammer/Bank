@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Главное окно оператора" Height="450" Width="800">
+        Title="Главное окно оператора" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
         <TabControl x:Name="TabControlModerator" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792" >
             <TabItem Header="Список счетов" IsSelected="True" Cursor="None">

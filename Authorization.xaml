@@ -12,14 +12,14 @@
         <Label Content="Войти как сотрудник" HorizontalAlignment="Left" Margin="356,42,0,0" VerticalAlignment="Top"/>
         <Label Content="Логин:" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top"/>
         <Label Content="Пароль:" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="64,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="64,125,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <TextBox x:Name="login_client" HorizontalAlignment="Left" Height="26" Margin="64,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="Password_client" HorizontalAlignment="Left" Margin="64,125,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
         <Label Content="Логин:" HorizontalAlignment="Left" Margin="306,94,0,0" VerticalAlignment="Top"/>
         <Label Content="Пароль:" HorizontalAlignment="Left" Margin="306,125,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="360,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox HorizontalAlignment="Left" Margin="360,125,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
-        <Button Content="Войти" HorizontalAlignment="Left" Margin="64,165,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Забыли пароль" HorizontalAlignment="Left" Margin="64,190,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Войти" HorizontalAlignment="Left" Margin="360,165,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Login_emp" HorizontalAlignment="Left" Height="26" Margin="360,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox x:Name="Password_emp" HorizontalAlignment="Left" Margin="360,125,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+        <Button x:Name="btn_auth_client" Content="Войти" HorizontalAlignment="Left" Margin="64,165,0,0" VerticalAlignment="Top" Width="120" Click="btn_auth_client_Click"/>
+        <Button x:Name="btn_forgot_pass" Content="Забыли пароль" HorizontalAlignment="Left" Margin="64,190,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btn_auth_employer" Content="Войти" HorizontalAlignment="Left" Margin="360,165,0,0" VerticalAlignment="Top" Width="120" Click="btn_auth_employer_Click"/>
     </Grid>
 </Window>
