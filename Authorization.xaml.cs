@@ -79,7 +79,7 @@ namespace Bank
                 int client_out = ent.ID;
                 MainWindowClient m = new MainWindowClient(client_type_out ,client_out);
                 m.Show();
-                Close();
+                Close();//
             }
         }
     }
