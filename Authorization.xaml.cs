@@ -67,19 +67,19 @@ namespace Bank
             }
             else if (acc !=null)
             {
-                int client_type_out = 1;
+                
                 int client_out = acc.ID_account_physical;
-                MainWindowClient m =new MainWindowClient(client_type_out,client_out);
+                MainWindowClient m =new MainWindowClient(client_out);
                 m.Show(); 
                 Close();
             }
             else if(ent !=null)
             {
-                int client_type_out = 2;
-                int client_out = ent.ID;
-                MainWindowClient m = new MainWindowClient(client_type_out ,client_out);
-                m.Show();
-                Close();//
+              
+               // int client_out = ent.ID;
+               // MainWindowClient m = new MainWindowClient(,client_out);
+               // m.Show();
+               // Close();
             }
         }
     }

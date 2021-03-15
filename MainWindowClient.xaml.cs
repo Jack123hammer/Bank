@@ -21,24 +21,18 @@ namespace Bank
     {
         Entities db = new Entities();
         public int client_in;
-        public int client_type;
-        public MainWindowClient(int client_type_out,int client_out)
+        
+        public MainWindowClient(int client_out)
         {
             InitializeComponent();
             client_in = client_out;
-            client_type = client_type;
+            Update();
         }
 
         public void Update()
         {
-            if (client_type==1)
-            {
-                dg_client.ItemsSource = db.Account_physical.Where(t=>t.ID_account_physical == client_in).ToList() ;
-            }
-            else if (client_type == 2)
-            {
-                dg_client.ItemsSource = db.Entity_clients.Where(t => t.ID == client_in).ToList();
-            }
+            
+                dg_client.ItemsSource = db.Bank_account_number.Where(t=>t.id_account == client_in).ToList() ;
             
         }
     }

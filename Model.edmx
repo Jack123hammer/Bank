@@ -26,6 +26,7 @@
           <Property Name="ID_Score" Type="int" Nullable="false" />
           <Property Name="Type_of_agreement" Type="int" />
           <Property Name="id_account" Type="int" />
+          <Property Name="Amount" Type="int" />
         </EntityType>
         <EntityType Name="Clients">
           <Key>
@@ -378,6 +379,7 @@
           <Property Name="ID_Score" Type="Int32" Nullable="false" />
           <Property Name="Type_of_agreement" Type="Int32" />
           <Property Name="id_account" Type="Int32" />
+          <Property Name="Amount" Type="Int32" />
           <NavigationProperty Name="Account_physical" Relationship="Self.FK_Bank_account_number_Account_physical" FromRole="Bank_account_number" ToRole="Account_physical" />
           <NavigationProperty Name="List_of_types_of_agreements" Relationship="Self.FK_Bank_account_number_List_of_types_of_agreements" FromRole="Bank_account_number" ToRole="List_of_types_of_agreements" />
           <NavigationProperty Name="Indefication_of_transaction" Relationship="Self.FK_Indefication_of_transaction_Bank_account_number" FromRole="Bank_account_number" ToRole="Indefication_of_transaction" />
@@ -751,6 +753,7 @@
                 <ScalarProperty Name="ID_Score" ColumnName="ID_Score" />
                 <ScalarProperty Name="Type_of_agreement" ColumnName="Type_of_agreement" />
                 <ScalarProperty Name="id_account" ColumnName="id_account" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
