@@ -14,15 +14,17 @@ namespace Bank
     
     public partial class Entity_clients
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Entity_clients()
+        {
+            this.Account = new HashSet<Account>();
+        }
+    
         public int ID { get; set; }
         public string Name_of_organization { get; set; }
         public string Organization_data { get; set; }
-        public Nullable<int> id_entity { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public Nullable<int> id_physical { get; set; }
     
-        public virtual Clients Clients { get; set; }
-        public virtual Passport_data Passport_data { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Account> Account { get; set; }
     }
 }

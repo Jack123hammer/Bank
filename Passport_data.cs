@@ -17,9 +17,8 @@ namespace Bank
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Passport_data()
         {
-            this.Account_physical = new HashSet<Account_physical>();
+            this.Account = new HashSet<Account>();
             this.Employers = new HashSet<Employers>();
-            this.Entity_clients = new HashSet<Entity_clients>();
         }
     
         public int ID { get; set; }
@@ -27,12 +26,13 @@ namespace Bank
         public string Number { get; set; }
         public string Who_give { get; set; }
         public string Registration_address { get; set; }
+        public string Last_name { get; set; }
+        public string First_name { get; set; }
+        public string Second_Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account_physical> Account_physical { get; set; }
+        public virtual ICollection<Account> Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employers> Employers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entity_clients> Entity_clients { get; set; }
     }
 }

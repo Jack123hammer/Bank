@@ -5,19 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Account_physical">
+        <EntityType Name="Account">
           <Key>
-            <PropertyRef Name="ID_account_physical" />
+            <PropertyRef Name="ID_account" />
           </Key>
-          <Property Name="ID_account_physical" Type="int" Nullable="false" />
-          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_account" Type="int" Nullable="false" />
           <Property Name="id_passport_data" Type="int" Nullable="false" />
-          <Property Name="id_client" Type="int" Nullable="false" />
-          <Property Name="Last_name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="First_name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Second_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_score" Type="int" Nullable="false" />
           <Property Name="Phone_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_of_clients" Type="int" />
+          <Property Name="id_pair" Type="int" />
+          <Property Name="id_organization" Type="int" />
         </EntityType>
         <EntityType Name="Bank_account_number">
           <Key>
@@ -27,13 +25,7 @@
           <Property Name="Type_of_agreement" Type="int" />
           <Property Name="id_account" Type="int" />
           <Property Name="Amount" Type="int" />
-        </EntityType>
-        <EntityType Name="Clients">
-          <Key>
-            <PropertyRef Name="ID_client" />
-          </Key>
-          <Property Name="ID_client" Type="int" Nullable="false" />
-          <Property Name="Type_of_client" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_of_currency" Type="int" />
         </EntityType>
         <EntityType Name="Employers">
           <Key>
@@ -55,10 +47,6 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name_of_organization" Type="nvarchar" MaxLength="50" />
           <Property Name="Organization_data" Type="nvarchar(max)" />
-          <Property Name="id_entity" Type="int" />
-          <Property Name="Login" Type="nvarchar" MaxLength="50" />
-          <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="id_physical" Type="int" />
         </EntityType>
         <EntityType Name="Indefication_of_transaction">
           <Key>
@@ -82,6 +70,14 @@
           <Property Name="ID_type" Type="int" Nullable="false" />
           <Property Name="Name_of_type" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Logins_and_passwords">
+          <Key>
+            <PropertyRef Name="ID_of_pair" />
+          </Key>
+          <Property Name="ID_of_pair" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Passport_data">
           <Key>
             <PropertyRef Name="ID" />
@@ -91,6 +87,9 @@
           <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Who_give" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Registration_address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="First_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Second_Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -127,36 +126,67 @@
           <Property Name="ID_type" Type="int" Nullable="false" />
           <Property Name="Name_of_transaction" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Account_physical_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
-          <End Role="Account_physical" Type="Self.Account_physical" Multiplicity="*" />
+        <EntityType Name="Types_of_clients">
+          <Key>
+            <PropertyRef Name="ID_type_of_client" />
+          </Key>
+          <Property Name="ID_type_of_client" Type="int" Nullable="false" />
+          <Property Name="Name_of_type_of_client" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Account_Entity_clients">
+          <End Role="Entity_clients" Type="Self.Entity_clients" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ID_client" />
+            <Principal Role="Entity_clients">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Account_physical">
-              <PropertyRef Name="id_client" />
+            <Dependent Role="Account">
+              <PropertyRef Name="id_organization" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Account_physical_Passport_data">
+        <Association Name="FK_Account_Logins_and_passwords">
+          <End Role="Logins_and_passwords" Type="Self.Logins_and_passwords" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logins_and_passwords">
+              <PropertyRef Name="ID_of_pair" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="id_pair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_Passport_data">
           <End Role="Passport_data" Type="Self.Passport_data" Multiplicity="1" />
-          <End Role="Account_physical" Type="Self.Account_physical" Multiplicity="*" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Passport_data">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Account_physical">
+            <Dependent Role="Account">
               <PropertyRef Name="id_passport_data" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Account_Types_of_clients">
+          <End Role="Types_of_clients" Type="Self.Types_of_clients" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types_of_clients">
+              <PropertyRef Name="ID_type_of_client" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="Type_of_clients" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Bank_account_number_Account_physical">
-          <End Role="Account_physical" Type="Self.Account_physical" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Bank_account_number" Type="Self.Bank_account_number" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account_physical">
-              <PropertyRef Name="ID_account_physical" />
+            <Principal Role="Account">
+              <PropertyRef Name="ID_account" />
             </Principal>
             <Dependent Role="Bank_account_number">
               <PropertyRef Name="id_account" />
@@ -172,6 +202,18 @@
             </Principal>
             <Dependent Role="Bank_account_number">
               <PropertyRef Name="Type_of_agreement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bank_account_number_Type_of_currency">
+          <End Role="Type_of_currency" Type="Self.Type_of_currency" Multiplicity="0..1" />
+          <End Role="Bank_account_number" Type="Self.Bank_account_number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_of_currency">
+              <PropertyRef Name="ID_currency" />
+            </Principal>
+            <Dependent Role="Bank_account_number">
+              <PropertyRef Name="Type_of_currency" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -196,30 +238,6 @@
             </Principal>
             <Dependent Role="Employers">
               <PropertyRef Name="id_passport_data" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Entity_clients_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="Entity_clients" Type="Self.Entity_clients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ID_client" />
-            </Principal>
-            <Dependent Role="Entity_clients">
-              <PropertyRef Name="id_entity" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Entity_clients_Passport_data">
-          <End Role="Passport_data" Type="Self.Passport_data" Multiplicity="0..1" />
-          <End Role="Entity_clients" Type="Self.Entity_clients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Passport_data">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Entity_clients">
-              <PropertyRef Name="id_physical" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -284,33 +302,46 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище ModelContainer">
-          <EntitySet Name="Account_physical" EntityType="Self.Account_physical" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bank_account_number" EntityType="Self.Bank_account_number" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employers" EntityType="Self.Employers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entity_clients" EntityType="Self.Entity_clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indefication_of_transaction" EntityType="Self.Indefication_of_transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="List_of_position" EntityType="Self.List_of_position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="List_of_types_of_agreements" EntityType="Self.List_of_types_of_agreements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins_and_passwords" EntityType="Self.Logins_and_passwords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Passport_data" EntityType="Self.Passport_data" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type_of_currency" EntityType="Self.Type_of_currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Type_of_transaction" EntityType="Self.Type_of_transaction" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Account_physical_Clients" Association="Self.FK_Account_physical_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Account_physical" EntitySet="Account_physical" />
+          <EntitySet Name="Types_of_clients" EntityType="Self.Types_of_clients" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_Entity_clients" Association="Self.FK_Account_Entity_clients">
+            <End Role="Entity_clients" EntitySet="Entity_clients" />
+            <End Role="Account" EntitySet="Account" />
           </AssociationSet>
-          <AssociationSet Name="FK_Account_physical_Passport_data" Association="Self.FK_Account_physical_Passport_data">
+          <AssociationSet Name="FK_Account_Logins_and_passwords" Association="Self.FK_Account_Logins_and_passwords">
+            <End Role="Logins_and_passwords" EntitySet="Logins_and_passwords" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Passport_data" Association="Self.FK_Account_Passport_data">
             <End Role="Passport_data" EntitySet="Passport_data" />
-            <End Role="Account_physical" EntitySet="Account_physical" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Types_of_clients" Association="Self.FK_Account_Types_of_clients">
+            <End Role="Types_of_clients" EntitySet="Types_of_clients" />
+            <End Role="Account" EntitySet="Account" />
           </AssociationSet>
           <AssociationSet Name="FK_Bank_account_number_Account_physical" Association="Self.FK_Bank_account_number_Account_physical">
-            <End Role="Account_physical" EntitySet="Account_physical" />
+            <End Role="Account" EntitySet="Account" />
             <End Role="Bank_account_number" EntitySet="Bank_account_number" />
           </AssociationSet>
           <AssociationSet Name="FK_Bank_account_number_List_of_types_of_agreements" Association="Self.FK_Bank_account_number_List_of_types_of_agreements">
             <End Role="List_of_types_of_agreements" EntitySet="List_of_types_of_agreements" />
+            <End Role="Bank_account_number" EntitySet="Bank_account_number" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bank_account_number_Type_of_currency" Association="Self.FK_Bank_account_number_Type_of_currency">
+            <End Role="Type_of_currency" EntitySet="Type_of_currency" />
             <End Role="Bank_account_number" EntitySet="Bank_account_number" />
           </AssociationSet>
           <AssociationSet Name="FK_Employers_List_of_position" Association="Self.FK_Employers_List_of_position">
@@ -320,14 +351,6 @@
           <AssociationSet Name="FK_Employers_Passport_data" Association="Self.FK_Employers_Passport_data">
             <End Role="Passport_data" EntitySet="Passport_data" />
             <End Role="Employers" EntitySet="Employers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Entity_clients_Clients" Association="Self.FK_Entity_clients_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Entity_clients" EntitySet="Entity_clients" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Entity_clients_Passport_data" Association="Self.FK_Entity_clients_Passport_data">
-            <End Role="Passport_data" EntitySet="Passport_data" />
-            <End Role="Entity_clients" EntitySet="Entity_clients" />
           </AssociationSet>
           <AssociationSet Name="FK_Indefication_of_transaction_Bank_account_number" Association="Self.FK_Indefication_of_transaction_Bank_account_number">
             <End Role="Bank_account_number" EntitySet="Bank_account_number" />
@@ -355,22 +378,22 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Account_physical">
+        <EntityType Name="Account">
           <Key>
-            <PropertyRef Name="ID_account_physical" />
+            <PropertyRef Name="ID_account" />
           </Key>
-          <Property Name="ID_account_physical" Type="Int32" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_account" Type="Int32" Nullable="false" />
           <Property Name="id_passport_data" Type="Int32" Nullable="false" />
-          <Property Name="id_client" Type="Int32" Nullable="false" />
-          <Property Name="Last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="First_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Second_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_score" Type="Int32" Nullable="false" />
           <Property Name="Phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Clients" Relationship="Self.FK_Account_physical_Clients" FromRole="Account_physical" ToRole="Clients" />
-          <NavigationProperty Name="Passport_data" Relationship="Self.FK_Account_physical_Passport_data" FromRole="Account_physical" ToRole="Passport_data" />
-          <NavigationProperty Name="Bank_account_number" Relationship="Self.FK_Bank_account_number_Account_physical" FromRole="Account_physical" ToRole="Bank_account_number" />
+          <Property Name="Type_of_clients" Type="Int32" />
+          <Property Name="id_pair" Type="Int32" />
+          <Property Name="id_organization" Type="Int32" />
+          <NavigationProperty Name="Entity_clients" Relationship="Self.FK_Account_Entity_clients" FromRole="Account" ToRole="Entity_clients" />
+          <NavigationProperty Name="Logins_and_passwords" Relationship="Self.FK_Account_Logins_and_passwords" FromRole="Account" ToRole="Logins_and_passwords" />
+          <NavigationProperty Name="Passport_data" Relationship="Self.FK_Account_Passport_data" FromRole="Account" ToRole="Passport_data" />
+          <NavigationProperty Name="Types_of_clients" Relationship="Self.FK_Account_Types_of_clients" FromRole="Account" ToRole="Types_of_clients" />
+          <NavigationProperty Name="Bank_account_number" Relationship="Self.FK_Bank_account_number_Account_physical" FromRole="Account" ToRole="Bank_account_number" />
         </EntityType>
         <EntityType Name="Bank_account_number">
           <Key>
@@ -380,19 +403,12 @@
           <Property Name="Type_of_agreement" Type="Int32" />
           <Property Name="id_account" Type="Int32" />
           <Property Name="Amount" Type="Int32" />
-          <NavigationProperty Name="Account_physical" Relationship="Self.FK_Bank_account_number_Account_physical" FromRole="Bank_account_number" ToRole="Account_physical" />
+          <Property Name="Type_of_currency" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Bank_account_number_Account_physical" FromRole="Bank_account_number" ToRole="Account" />
           <NavigationProperty Name="List_of_types_of_agreements" Relationship="Self.FK_Bank_account_number_List_of_types_of_agreements" FromRole="Bank_account_number" ToRole="List_of_types_of_agreements" />
+          <NavigationProperty Name="Type_of_currency1" Relationship="Self.FK_Bank_account_number_Type_of_currency" FromRole="Bank_account_number" ToRole="Type_of_currency" />
           <NavigationProperty Name="Indefication_of_transaction" Relationship="Self.FK_Indefication_of_transaction_Bank_account_number" FromRole="Bank_account_number" ToRole="Indefication_of_transaction" />
           <NavigationProperty Name="Indefication_of_transaction1" Relationship="Self.FK_Indefication_of_transaction_Bank_account_number1" FromRole="Bank_account_number" ToRole="Indefication_of_transaction" />
-        </EntityType>
-        <EntityType Name="Clients">
-          <Key>
-            <PropertyRef Name="ID_client" />
-          </Key>
-          <Property Name="ID_client" Type="Int32" Nullable="false" />
-          <Property Name="Type_of_client" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Account_physical" Relationship="Self.FK_Account_physical_Clients" FromRole="Clients" ToRole="Account_physical" />
-          <NavigationProperty Name="Entity_clients" Relationship="Self.FK_Entity_clients_Clients" FromRole="Clients" ToRole="Entity_clients" />
         </EntityType>
         <EntityType Name="Employers">
           <Key>
@@ -416,12 +432,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name_of_organization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Organization_data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="id_entity" Type="Int32" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="id_physical" Type="Int32" />
-          <NavigationProperty Name="Clients" Relationship="Self.FK_Entity_clients_Clients" FromRole="Entity_clients" ToRole="Clients" />
-          <NavigationProperty Name="Passport_data" Relationship="Self.FK_Entity_clients_Passport_data" FromRole="Entity_clients" ToRole="Passport_data" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_Entity_clients" FromRole="Entity_clients" ToRole="Account" />
         </EntityType>
         <EntityType Name="Indefication_of_transaction">
           <Key>
@@ -450,6 +461,15 @@
           <Property Name="Name_of_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Bank_account_number" Relationship="Self.FK_Bank_account_number_List_of_types_of_agreements" FromRole="List_of_types_of_agreements" ToRole="Bank_account_number" />
         </EntityType>
+        <EntityType Name="Logins_and_passwords">
+          <Key>
+            <PropertyRef Name="ID_of_pair" />
+          </Key>
+          <Property Name="ID_of_pair" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_Logins_and_passwords" FromRole="Logins_and_passwords" ToRole="Account" />
+        </EntityType>
         <EntityType Name="Passport_data">
           <Key>
             <PropertyRef Name="ID" />
@@ -459,9 +479,11 @@
           <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Who_give" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Registration_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Account_physical" Relationship="Self.FK_Account_physical_Passport_data" FromRole="Passport_data" ToRole="Account_physical" />
+          <Property Name="Last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="First_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Second_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_Passport_data" FromRole="Passport_data" ToRole="Account" />
           <NavigationProperty Name="Employers" Relationship="Self.FK_Employers_Passport_data" FromRole="Passport_data" ToRole="Employers" />
-          <NavigationProperty Name="Entity_clients" Relationship="Self.FK_Entity_clients_Passport_data" FromRole="Passport_data" ToRole="Entity_clients" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -493,6 +515,7 @@
           </Key>
           <Property Name="ID_currency" Type="Int32" Nullable="false" />
           <Property Name="Name_of_currency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bank_account_number" Relationship="Self.FK_Bank_account_number_Type_of_currency" FromRole="Type_of_currency" ToRole="Bank_account_number" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Transaction_Type_of_currency" FromRole="Type_of_currency" ToRole="Transaction" />
         </EntityType>
         <EntityType Name="Type_of_transaction">
@@ -503,36 +526,68 @@
           <Property Name="Name_of_transaction" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Transaction" Relationship="Self.FK_Transaction_Type_of_transaction" FromRole="Type_of_transaction" ToRole="Transaction" />
         </EntityType>
-        <Association Name="FK_Account_physical_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
-          <End Role="Account_physical" Type="Self.Account_physical" Multiplicity="*" />
+        <EntityType Name="Types_of_clients">
+          <Key>
+            <PropertyRef Name="ID_type_of_client" />
+          </Key>
+          <Property Name="ID_type_of_client" Type="Int32" Nullable="false" />
+          <Property Name="Name_of_type_of_client" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_Account_Types_of_clients" FromRole="Types_of_clients" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK_Account_Entity_clients">
+          <End Role="Entity_clients" Type="Self.Entity_clients" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ID_client" />
+            <Principal Role="Entity_clients">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Account_physical">
-              <PropertyRef Name="id_client" />
+            <Dependent Role="Account">
+              <PropertyRef Name="id_organization" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Account_physical_Passport_data">
+        <Association Name="FK_Account_Logins_and_passwords">
+          <End Role="Logins_and_passwords" Type="Self.Logins_and_passwords" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logins_and_passwords">
+              <PropertyRef Name="ID_of_pair" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="id_pair" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_Passport_data">
           <End Role="Passport_data" Type="Self.Passport_data" Multiplicity="1" />
-          <End Role="Account_physical" Type="Self.Account_physical" Multiplicity="*" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Passport_data">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Account_physical">
+            <Dependent Role="Account">
               <PropertyRef Name="id_passport_data" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Account_Types_of_clients">
+          <End Role="Types_of_clients" Type="Self.Types_of_clients" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types_of_clients">
+              <PropertyRef Name="ID_type_of_client" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="Type_of_clients" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Bank_account_number_Account_physical">
-          <End Role="Account_physical" Type="Self.Account_physical" Multiplicity="0..1" />
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
           <End Role="Bank_account_number" Type="Self.Bank_account_number" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account_physical">
-              <PropertyRef Name="ID_account_physical" />
+            <Principal Role="Account">
+              <PropertyRef Name="ID_account" />
             </Principal>
             <Dependent Role="Bank_account_number">
               <PropertyRef Name="id_account" />
@@ -548,6 +603,18 @@
             </Principal>
             <Dependent Role="Bank_account_number">
               <PropertyRef Name="Type_of_agreement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bank_account_number_Type_of_currency">
+          <End Role="Type_of_currency" Type="Self.Type_of_currency" Multiplicity="0..1" />
+          <End Role="Bank_account_number" Type="Self.Bank_account_number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_of_currency">
+              <PropertyRef Name="ID_currency" />
+            </Principal>
+            <Dependent Role="Bank_account_number">
+              <PropertyRef Name="Type_of_currency" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -575,18 +642,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Entity_clients_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="Entity_clients" Type="Self.Entity_clients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ID_client" />
-            </Principal>
-            <Dependent Role="Entity_clients">
-              <PropertyRef Name="id_entity" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Employers_List_of_position">
           <End Role="List_of_position" Type="Self.List_of_position" Multiplicity="0..1" />
           <End Role="Employers" Type="Self.Employers" Multiplicity="*" />
@@ -608,18 +663,6 @@
             </Principal>
             <Dependent Role="Employers">
               <PropertyRef Name="id_passport_data" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Entity_clients_Passport_data">
-          <End Role="Passport_data" Type="Self.Passport_data" Multiplicity="0..1" />
-          <End Role="Entity_clients" Type="Self.Entity_clients" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Passport_data">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Entity_clients">
-              <PropertyRef Name="id_physical" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -660,33 +703,46 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Account_physical" EntityType="Self.Account_physical" />
+          <EntitySet Name="Account" EntityType="Self.Account" />
           <EntitySet Name="Bank_account_number" EntityType="Self.Bank_account_number" />
-          <EntitySet Name="Clients" EntityType="Self.Clients" />
           <EntitySet Name="Employers" EntityType="Self.Employers" />
           <EntitySet Name="Entity_clients" EntityType="Self.Entity_clients" />
           <EntitySet Name="Indefication_of_transaction" EntityType="Self.Indefication_of_transaction" />
           <EntitySet Name="List_of_position" EntityType="Self.List_of_position" />
           <EntitySet Name="List_of_types_of_agreements" EntityType="Self.List_of_types_of_agreements" />
+          <EntitySet Name="Logins_and_passwords" EntityType="Self.Logins_and_passwords" />
           <EntitySet Name="Passport_data" EntityType="Self.Passport_data" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" />
           <EntitySet Name="Type_of_currency" EntityType="Self.Type_of_currency" />
           <EntitySet Name="Type_of_transaction" EntityType="Self.Type_of_transaction" />
-          <AssociationSet Name="FK_Account_physical_Clients" Association="Self.FK_Account_physical_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Account_physical" EntitySet="Account_physical" />
+          <EntitySet Name="Types_of_clients" EntityType="Self.Types_of_clients" />
+          <AssociationSet Name="FK_Account_Entity_clients" Association="Self.FK_Account_Entity_clients">
+            <End Role="Entity_clients" EntitySet="Entity_clients" />
+            <End Role="Account" EntitySet="Account" />
           </AssociationSet>
-          <AssociationSet Name="FK_Account_physical_Passport_data" Association="Self.FK_Account_physical_Passport_data">
+          <AssociationSet Name="FK_Account_Logins_and_passwords" Association="Self.FK_Account_Logins_and_passwords">
+            <End Role="Logins_and_passwords" EntitySet="Logins_and_passwords" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Passport_data" Association="Self.FK_Account_Passport_data">
             <End Role="Passport_data" EntitySet="Passport_data" />
-            <End Role="Account_physical" EntitySet="Account_physical" />
+            <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Types_of_clients" Association="Self.FK_Account_Types_of_clients">
+            <End Role="Types_of_clients" EntitySet="Types_of_clients" />
+            <End Role="Account" EntitySet="Account" />
           </AssociationSet>
           <AssociationSet Name="FK_Bank_account_number_Account_physical" Association="Self.FK_Bank_account_number_Account_physical">
-            <End Role="Account_physical" EntitySet="Account_physical" />
+            <End Role="Account" EntitySet="Account" />
             <End Role="Bank_account_number" EntitySet="Bank_account_number" />
           </AssociationSet>
           <AssociationSet Name="FK_Bank_account_number_List_of_types_of_agreements" Association="Self.FK_Bank_account_number_List_of_types_of_agreements">
             <End Role="List_of_types_of_agreements" EntitySet="List_of_types_of_agreements" />
+            <End Role="Bank_account_number" EntitySet="Bank_account_number" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bank_account_number_Type_of_currency" Association="Self.FK_Bank_account_number_Type_of_currency">
+            <End Role="Type_of_currency" EntitySet="Type_of_currency" />
             <End Role="Bank_account_number" EntitySet="Bank_account_number" />
           </AssociationSet>
           <AssociationSet Name="FK_Indefication_of_transaction_Bank_account_number" Association="Self.FK_Indefication_of_transaction_Bank_account_number">
@@ -697,10 +753,6 @@
             <End Role="Bank_account_number" EntitySet="Bank_account_number" />
             <End Role="Indefication_of_transaction" EntitySet="Indefication_of_transaction" />
           </AssociationSet>
-          <AssociationSet Name="FK_Entity_clients_Clients" Association="Self.FK_Entity_clients_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Entity_clients" EntitySet="Entity_clients" />
-          </AssociationSet>
           <AssociationSet Name="FK_Employers_List_of_position" Association="Self.FK_Employers_List_of_position">
             <End Role="List_of_position" EntitySet="List_of_position" />
             <End Role="Employers" EntitySet="Employers" />
@@ -708,10 +760,6 @@
           <AssociationSet Name="FK_Employers_Passport_data" Association="Self.FK_Employers_Passport_data">
             <End Role="Passport_data" EntitySet="Passport_data" />
             <End Role="Employers" EntitySet="Employers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Entity_clients_Passport_data" Association="Self.FK_Entity_clients_Passport_data">
-            <End Role="Passport_data" EntitySet="Passport_data" />
-            <End Role="Entity_clients" EntitySet="Entity_clients" />
           </AssociationSet>
           <AssociationSet Name="FK_Transaction_Indefication_of_transaction" Association="Self.FK_Transaction_Indefication_of_transaction">
             <End Role="Indefication_of_transaction" EntitySet="Indefication_of_transaction" />
@@ -732,18 +780,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="Account_physical">
-            <EntityTypeMapping TypeName="Model.Account_physical">
-              <MappingFragment StoreEntitySet="Account_physical">
-                <ScalarProperty Name="ID_account_physical" ColumnName="ID_account_physical" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="Model.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="ID_account" ColumnName="ID_account" />
                 <ScalarProperty Name="id_passport_data" ColumnName="id_passport_data" />
-                <ScalarProperty Name="id_client" ColumnName="id_client" />
-                <ScalarProperty Name="Last_name" ColumnName="Last_name" />
-                <ScalarProperty Name="First_name" ColumnName="First_name" />
-                <ScalarProperty Name="Second_name" ColumnName="Second_name" />
+                <ScalarProperty Name="id_score" ColumnName="id_score" />
                 <ScalarProperty Name="Phone_number" ColumnName="Phone_number" />
+                <ScalarProperty Name="Type_of_clients" ColumnName="Type_of_clients" />
+                <ScalarProperty Name="id_pair" ColumnName="id_pair" />
+                <ScalarProperty Name="id_organization" ColumnName="id_organization" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -754,14 +800,7 @@
                 <ScalarProperty Name="Type_of_agreement" ColumnName="Type_of_agreement" />
                 <ScalarProperty Name="id_account" ColumnName="id_account" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="Model.Clients">
-              <MappingFragment StoreEntitySet="Clients">
-                <ScalarProperty Name="ID_client" ColumnName="ID_client" />
-                <ScalarProperty Name="Type_of_client" ColumnName="Type_of_client" />
+                <ScalarProperty Name="Type_of_currency" ColumnName="Type_of_currency" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -785,10 +824,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name_of_organization" ColumnName="Name_of_organization" />
                 <ScalarProperty Name="Organization_data" ColumnName="Organization_data" />
-                <ScalarProperty Name="id_entity" ColumnName="id_entity" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="id_physical" ColumnName="id_physical" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -817,6 +852,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Logins_and_passwords">
+            <EntityTypeMapping TypeName="Model.Logins_and_passwords">
+              <MappingFragment StoreEntitySet="Logins_and_passwords">
+                <ScalarProperty Name="ID_of_pair" ColumnName="ID_of_pair" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Passport_data">
             <EntityTypeMapping TypeName="Model.Passport_data">
               <MappingFragment StoreEntitySet="Passport_data">
@@ -825,6 +869,9 @@
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="Who_give" ColumnName="Who_give" />
                 <ScalarProperty Name="Registration_address" ColumnName="Registration_address" />
+                <ScalarProperty Name="Last_name" ColumnName="Last_name" />
+                <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="Second_Name" ColumnName="Second_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -864,6 +911,14 @@
               <MappingFragment StoreEntitySet="Type_of_transaction">
                 <ScalarProperty Name="ID_type" ColumnName="ID_type" />
                 <ScalarProperty Name="Name_of_transaction" ColumnName="Name_of_transaction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types_of_clients">
+            <EntityTypeMapping TypeName="Model.Types_of_clients">
+              <MappingFragment StoreEntitySet="Types_of_clients">
+                <ScalarProperty Name="ID_type_of_client" ColumnName="ID_type_of_client" />
+                <ScalarProperty Name="Name_of_type_of_client" ColumnName="Name_of_type_of_client" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

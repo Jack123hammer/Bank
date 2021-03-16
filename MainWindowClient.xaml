@@ -12,15 +12,10 @@
         <Button Content="Дополнительные услуги" HorizontalAlignment="Left" Margin="600,108,0,0" VerticalAlignment="Top" Width="182" Height="27"/>
         <DataGrid x:Name="dg_client" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="595" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Account_physical.ID_account_physical}" Width="*" Header="ИД"/>
-                <DataGridTextColumn Binding="{Binding Account_physical.Login}" Width="*" Header="Логин"/>
-                <DataGridTextColumn Binding="{Binding Account_physical.Password}" Width="*" Header="Пароль"/>
-                <DataGridTextColumn Binding="{Binding Account_physical.id_passport_data}" Width="*" Header="Паспорт"/>
+                <DataGridTextColumn Binding="{Binding Account.ID_account}" Width="*" Header="ИД"/>
+                <DataGridTextColumn Binding="{Binding Account.id_passport_data}" Width="*" Header="Паспорт"/>
                 <DataGridTextColumn  Binding="{Binding Amount}" Width="*" Header="Клиент"/>
-                <DataGridTextColumn Binding="{Binding Account_physical.Last_name}" Width="*" Header="Фамилия"/>
-                <DataGridTextColumn Binding="{Binding Account_physical.First_name}" Width="*" Header="Имя"/>
-                <DataGridTextColumn Binding="{Binding Account_physical.Second_name}" Width="*" Header="Отчество"/>
-                <DataGridTextColumn Binding="{Binding Account_physical.Phone_number}" Width="*" Header="Телефон"/>
+                <DataGridTextColumn Binding="{Binding Account.Phone_number}" Width="*" Header="Телефон"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Выйти из программы" HorizontalAlignment="Left" Margin="600,388,0,0" VerticalAlignment="Top" Width="182" Height="22"/>

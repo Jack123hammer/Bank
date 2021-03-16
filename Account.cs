@@ -12,21 +12,27 @@ namespace Bank
     using System;
     using System.Collections.Generic;
     
-    public partial class Clients
+    public partial class Account
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clients()
+        public Account()
         {
-            this.Account_physical = new HashSet<Account_physical>();
-            this.Entity_clients = new HashSet<Entity_clients>();
+            this.Bank_account_number = new HashSet<Bank_account_number>();
         }
     
-        public int ID_client { get; set; }
-        public string Type_of_client { get; set; }
+        public int ID_account { get; set; }
+        public int id_passport_data { get; set; }
+        public int id_score { get; set; }
+        public string Phone_number { get; set; }
+        public Nullable<int> Type_of_clients { get; set; }
+        public Nullable<int> id_pair { get; set; }
+        public Nullable<int> id_organization { get; set; }
     
+        public virtual Entity_clients Entity_clients { get; set; }
+        public virtual Logins_and_passwords Logins_and_passwords { get; set; }
+        public virtual Passport_data Passport_data { get; set; }
+        public virtual Types_of_clients Types_of_clients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account_physical> Account_physical { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Entity_clients> Entity_clients { get; set; }
+        public virtual ICollection<Bank_account_number> Bank_account_number { get; set; }
     }
 }

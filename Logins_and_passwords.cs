@@ -12,21 +12,19 @@ namespace Bank
     using System;
     using System.Collections.Generic;
     
-    public partial class Type_of_currency
+    public partial class Logins_and_passwords
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Type_of_currency()
+        public Logins_and_passwords()
         {
-            this.Bank_account_number = new HashSet<Bank_account_number>();
-            this.Transaction = new HashSet<Transaction>();
+            this.Account = new HashSet<Account>();
         }
     
-        public int ID_currency { get; set; }
-        public string Name_of_currency { get; set; }
+        public int ID_of_pair { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bank_account_number> Bank_account_number { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction> Transaction { get; set; }
+        public virtual ICollection<Account> Account { get; set; }
     }
 }

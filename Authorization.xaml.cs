@@ -59,28 +59,23 @@ namespace Bank
 
         private void btn_auth_client_Click(object sender, RoutedEventArgs e)
         {
-            Entity_clients ent = db.Entity_clients.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
-            Account_physical acc = db.Account_physical.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
-            if (acc == null && ent == null)
+            //Entity_clients ent = db.Entity_clients.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
+            Logins_and_passwords lap = db.Logins_and_passwords.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
+            int id_pair = lap.ID_of_pair;
+            Account acc = db.Account.SingleOrDefault(t => t.id_pair == id_pair);
+            if (lap == null )
             {
                 MessageBox.Show("Debil");
             }
-            else if (acc !=null)
+            else if (lap !=null)
             {
+                int client_out = acc.ID_account;
                 
-                int client_out = acc.ID_account_physical;
                 MainWindowClient m =new MainWindowClient(client_out);
                 m.Show(); 
                 Close();
             }
-            else if(ent !=null)
-            {
-              
-               // int client_out = ent.ID;
-               // MainWindowClient m = new MainWindowClient(,client_out);
-               // m.Show();
-               // Close();
-            }
+            
         }
     }
 }
