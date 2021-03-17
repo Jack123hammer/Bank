@@ -19,20 +19,26 @@ namespace Bank
         {
             this.Account = new HashSet<Account>();
             this.Employers = new HashSet<Employers>();
+            this.Reciever = new HashSet<Reciever>();
+            this.Sender = new HashSet<Sender>();
         }
     
-        public int ID { get; set; }
-        public string Serial { get; set; }
-        public string Number { get; set; }
-        public string Who_give { get; set; }
-        public string Registration_address { get; set; }
-        public string Last_name { get; set; }
-        public string First_name { get; set; }
-        public string Second_Name { get; set; }
+        public int ID_passport_data { get; set; }
+        public string serial { get; set; }
+        public string number { get; set; }
+        public string who_give { get; set; }
+        public string registration_address { get; set; }
+        public string last_name { get; set; }
+        public string first_name { get; set; }
+        public string second_Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employers> Employers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reciever> Reciever { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sender> Sender { get; set; }
     }
 }

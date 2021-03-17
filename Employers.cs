@@ -15,12 +15,9 @@ namespace Bank
     public partial class Employers
     {
         public int ID_employee { get; set; }
-        public Nullable<int> Type_of_employee { get; set; }
-        public string Last_name { get; set; }
-        public string First_name { get; set; }
-        public string Second_name { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public Nullable<int> type_of_employee { get; set; }
+        public string login { get; set; }
+        public string password { get; set; }
         public Nullable<int> id_passport_data { get; set; }
     
         public virtual List_of_position List_of_position { get; set; }

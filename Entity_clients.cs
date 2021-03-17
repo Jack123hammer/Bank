@@ -20,9 +20,9 @@ namespace Bank
             this.Account = new HashSet<Account>();
         }
     
-        public int ID { get; set; }
-        public string Name_of_organization { get; set; }
-        public string Organization_data { get; set; }
+        public int ID_entity_clients { get; set; }
+        public string name_of_organization { get; set; }
+        public string organization_data { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }

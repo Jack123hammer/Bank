@@ -14,15 +14,15 @@ namespace Bank
     
     public partial class Transaction
     {
-        public int ID { get; set; }
-        public int Type_of_currency { get; set; }
-        public int Type_of_transaction { get; set; }
-        public int Amount_of_transaction { get; set; }
-        public System.DateTime Date_time_of_transaction { get; set; }
-        public int id_transaction { get; set; }
+        public int ID_transaction { get; set; }
+        public string type_of_currency { get; set; }
+        public string type_of_transaction { get; set; }
+        public int amount_of_transaction { get; set; }
+        public System.DateTime date_time_of_transaction { get; set; }
+        public Nullable<int> data_of_sender { get; set; }
+        public Nullable<int> data_of_reciever { get; set; }
     
-        public virtual Indefication_of_transaction Indefication_of_transaction { get; set; }
-        public virtual Type_of_currency Type_of_currency1 { get; set; }
-        public virtual Type_of_transaction Type_of_transaction1 { get; set; }
+        public virtual Reciever Reciever { get; set; }
+        public virtual Sender Sender { get; set; }
     }
 }

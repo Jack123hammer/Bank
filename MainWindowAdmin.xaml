@@ -8,12 +8,20 @@
         Title="Главное окно администратора" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
         <TabControl x:Name="TabControlAdmin" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792">
-            <TabItem Header="Список счетов" IsSelected="True" Cursor="None">
+            <TabItem Header="Список счетов" IsSelected="True">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="DG_Account" HorizontalAlignment="Left" Height="356" VerticalAlignment="Top" Width="786"/>
+                    <DataGrid x:Name="DG_Account" HorizontalAlignment="Left" Height="356" VerticalAlignment="Top" Width="786" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID_Score}" Width="*" Header="ИД счета"/>
+                            <DataGridTextColumn Binding="{Binding List_of_types_of_agreements.name_of_type}" Width="*" Header="Тип договора"/>
+                            <DataGridTextColumn Binding="{Binding id_account}" Width="*" Header="ИД клиента"/>
+                            <DataGridTextColumn Binding="{Binding amount}" Width="*" Header="Количество валюты"/>
+                            <DataGridTextColumn Binding="{Binding type_of_currency}" Width="*" Header="Тип валюты"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <Button x:Name="Btn_Add_Account" Content="Добавить" HorizontalAlignment="Left" Margin="531,361,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="Btn_Edit_Account" Content="Изменить" HorizontalAlignment="Left" Margin="621,361,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="Btn_Delete_Account" Content="Удалить" HorizontalAlignment="Left" Margin="711,361,0,0" VerticalAlignment="Top" Width="75"/>
@@ -24,7 +32,18 @@
             </TabItem>
             <TabItem Header="История операций">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="DG_History" HorizontalAlignment="Left" Height="355" VerticalAlignment="Top" Width="786"/>
+                    <DataGrid x:Name="DG_History" HorizontalAlignment="Left" Height="355" VerticalAlignment="Top" Width="786" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID_transaction}" Width="0.3*" Header="ИД"/>
+                            <DataGridTextColumn Binding="{Binding type_of_currency}" Width="*" Header="Тип валюты"/>
+                            <DataGridTextColumn Binding="{Binding type_of_transaction}" Width="*" Header="Тип транзакции"/>
+                            <DataGridTextColumn Binding="{Binding amount_of_transaction}" Width="*" Header="Количество"/>
+                            <DataGridTextColumn Binding="{Binding date_time_of_transaction}" Width="*" Header="Дата и время"/>
+                            <DataGridTextColumn Binding="{Binding data_of_sender}" Width="*" Header="Счёт отправителя "/>
+                            <DataGridTextColumn Binding="{Binding data_of_reciever}" Width="*" Header="Счёт получателя "/>
+                            
+                        </DataGrid.Columns>
+                    </DataGrid>
                     <Button x:Name="Btn_Add_History" Content="Добавить" HorizontalAlignment="Left" Margin="531,361,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="Btn_Edit_History" Content="Изменить" HorizontalAlignment="Left" Margin="621,361,0,0" VerticalAlignment="Top" Width="75"/>
                     <Button x:Name="Btn_Delete_History" Content="Удалить" HorizontalAlignment="Left" Margin="711,361,0,0" VerticalAlignment="Top" Width="75"/>

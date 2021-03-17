@@ -12,20 +12,23 @@ namespace Bank
     using System;
     using System.Collections.Generic;
     
-    public partial class Type_of_currency
+    public partial class Sender
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Type_of_currency()
+        public Sender()
         {
-            this.Bank_account_number = new HashSet<Bank_account_number>();
             this.Transaction = new HashSet<Transaction>();
         }
     
-        public int ID_currency { get; set; }
-        public string Name_of_currency { get; set; }
+        public int ID_sender { get; set; }
+        public string last_name { get; set; }
+        public string first_name { get; set; }
+        public string second_name { get; set; }
+        public Nullable<int> id_password_data { get; set; }
+        public Nullable<int> id_score { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bank_account_number> Bank_account_number { get; set; }
+        public virtual Bank_account_number Bank_account_number { get; set; }
+        public virtual Passport_data Passport_data { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transaction { get; set; }
     }

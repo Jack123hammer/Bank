@@ -23,13 +23,13 @@ namespace Bank
         public int ID_account { get; set; }
         public int id_passport_data { get; set; }
         public int id_score { get; set; }
-        public string Phone_number { get; set; }
-        public Nullable<int> Type_of_clients { get; set; }
-        public Nullable<int> id_pair { get; set; }
+        public string phone_number { get; set; }
+        public Nullable<int> type_of_clients { get; set; }
         public Nullable<int> id_organization { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
     
         public virtual Entity_clients Entity_clients { get; set; }
-        public virtual Logins_and_passwords Logins_and_passwords { get; set; }
         public virtual Passport_data Passport_data { get; set; }
         public virtual Types_of_clients Types_of_clients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

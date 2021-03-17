@@ -12,20 +12,23 @@ namespace Bank
     using System;
     using System.Collections.Generic;
     
-    public partial class Indefication_of_transaction
+    public partial class Reciever
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Indefication_of_transaction()
+        public Reciever()
         {
             this.Transaction = new HashSet<Transaction>();
         }
     
-        public int ID_transaction { get; set; }
-        public int Data_of_sender { get; set; }
-        public int Data_of_reciever { get; set; }
+        public int ID_reciever { get; set; }
+        public string last_name { get; set; }
+        public string first_name { get; set; }
+        public string second_name { get; set; }
+        public Nullable<int> id_password_data { get; set; }
+        public Nullable<int> id_score { get; set; }
     
         public virtual Bank_account_number Bank_account_number { get; set; }
-        public virtual Bank_account_number Bank_account_number1 { get; set; }
+        public virtual Passport_data Passport_data { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transaction { get; set; }
     }

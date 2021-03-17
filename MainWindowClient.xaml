@@ -12,9 +12,8 @@
         <Button Content="Дополнительные услуги" HorizontalAlignment="Left" Margin="600,108,0,0" VerticalAlignment="Top" Width="182" Height="27"/>
         <DataGrid x:Name="dg_client" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="595" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Account.ID_account}" Width="*" Header="ИД"/>
-                <DataGridTextColumn Binding="{Binding Account.id_passport_data}" Width="*" Header="Паспорт"/>
-                <DataGridTextColumn  Binding="{Binding Amount}" Width="*" Header="Клиент"/>
+                <DataGridTextColumn Binding="{Binding ID_Score}" Width="*" Header="Номер счета"/>
+                <DataGridTextColumn  Binding="{Binding Amount}" Width="*" Header="Сумма"/>
                 <DataGridTextColumn Binding="{Binding Account.Phone_number}" Width="*" Header="Телефон"/>
             </DataGrid.Columns>
         </DataGrid>

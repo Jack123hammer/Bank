@@ -19,15 +19,24 @@ namespace Bank
     /// </summary>
     public partial class MainWindowAdmin : Window
     {
+        Entities db = new Entities();
         public MainWindowAdmin()
         {
             InitializeComponent();
+            Update();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Authorization m = new Authorization();
             m.Show();
+            
+        }
+
+        public void Update()
+        {
+            DG_Account.ItemsSource = db.Bank_account_number.ToList();
+            DG_History.ItemsSource = db.Transaction.ToList();
             
         }
     }

@@ -21,7 +21,7 @@ namespace Bank
         }
     
         public int ID_type_of_client { get; set; }
-        public string Name_of_type_of_client { get; set; }
+        public string name_of_type_of_client { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account> Account { get; set; }

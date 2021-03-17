@@ -31,24 +31,24 @@ namespace Bank
 
         private void btn_auth_employer_Click(object sender, RoutedEventArgs e)
         {
-            Employers emp = db.Employers.SingleOrDefault(t => t.Login == Login_emp.Text && t.Password == Password_emp.Password);
+            Employers emp = db.Employers.SingleOrDefault(t => t.login == Login_emp.Text && t.password == Password_emp.Password);
             if (emp == null)
             {
                 MessageBox.Show("Debil");
             }
-            else if (emp.Type_of_employee ==1)
+            else if (emp.type_of_employee ==1)
             {
                 MainWindowAdmin m = new MainWindowAdmin();
                 m.Show();
                 Close();
             }
-            else if (emp.Type_of_employee == 2)
+            else if (emp.type_of_employee == 2)
             {
                 MainWindowModerator m = new MainWindowModerator();
                 m.Show();
                 Close();
             }
-            else if (emp.Type_of_employee == 3)
+            else if (emp.type_of_employee == 3)
             {
                 MainWindowOperator m = new MainWindowOperator();
                 m.Show();
@@ -60,14 +60,12 @@ namespace Bank
         private void btn_auth_client_Click(object sender, RoutedEventArgs e)
         {
             //Entity_clients ent = db.Entity_clients.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
-            Logins_and_passwords lap = db.Logins_and_passwords.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
-            int id_pair = lap.ID_of_pair;
-            Account acc = db.Account.SingleOrDefault(t => t.id_pair == id_pair);
-            if (lap == null )
+            Account acc = db.Account.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
+            if (acc == null )
             {
                 MessageBox.Show("Debil");
             }
-            else if (lap !=null)
+            else if (acc !=null)
             {
                 int client_out = acc.ID_account;
                 

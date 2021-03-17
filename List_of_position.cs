@@ -21,7 +21,7 @@ namespace Bank
         }
     
         public int ID_type_of_employee { get; set; }
-        public string Name_of_position { get; set; }
+        public string name_of_position { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employers> Employers { get; set; }
