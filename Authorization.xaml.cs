@@ -22,58 +22,80 @@ namespace Bank
     {
         Entities db = new Entities();
         public int level_out;
+        public int exit_switch = 0;
         
         public Authorization()
         {
             InitializeComponent();
-            
         }
 
-        private void btn_auth_employer_Click(object sender, RoutedEventArgs e)
-        {
-            Employers emp = db.Employers.SingleOrDefault(t => t.login == Login_emp.Text && t.password == Password_emp.Password);
-            if (emp == null)
-            {
-                MessageBox.Show("Debil");
-            }
-            else if (emp.type_of_employee ==1)
-            {
-                MainWindowAdmin m = new MainWindowAdmin();
-                m.Show();
-                Close();
-            }
-            else if (emp.type_of_employee == 2)
-            {
-                MainWindowModerator m = new MainWindowModerator();
-                m.Show();
-                Close();
-            }
-            else if (emp.type_of_employee == 3)
-            {
-                MainWindowOperator m = new MainWindowOperator();
-                m.Show();
-                Close();
-            }
-            
-        }
+        
 
         private void btn_auth_client_Click(object sender, RoutedEventArgs e)
         {
-            //Entity_clients ent = db.Entity_clients.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
-            Account acc = db.Account.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
-            if (acc == null )
+            if (exit_switch == 0)
             {
-                MessageBox.Show("Debil");
+                Account acc = db.Account.SingleOrDefault(t => t.Login == login_client.Text && t.Password == Password_client.Password);
+                if (acc == null)
+                {
+                    MessageBox.Show("Debil");
+                }
+                else if (acc != null)
+                {
+                    int client_out = acc.ID_account;
+
+                    MainWindowClient m = new MainWindowClient(client_out);
+                    m.Show();
+                    Close();
+                }
             }
-            else if (acc !=null)
+            else if (exit_switch == 1)
             {
-                int client_out = acc.ID_account;
-                
-                MainWindowClient m =new MainWindowClient(client_out);
-                m.Show(); 
-                Close();
+                Employers emp = db.Employers.SingleOrDefault(t => t.login == login_client.Text && t.password == Password_client.Password);
+                if (emp == null)
+                {
+                    MessageBox.Show("Debil");
+                }
+                else if (emp.type_of_employee == 1)
+                {
+                    MainWindowAdmin m = new MainWindowAdmin();
+                    m.Show();
+                    Close();
+                }
+                else if (emp.type_of_employee == 2)
+                {
+                    MainWindowModerator m = new MainWindowModerator();
+                    m.Show();
+                    Close();
+                }
+                else if (emp.type_of_employee == 3)
+                {
+                    MainWindowOperator m = new MainWindowOperator();
+                    m.Show();
+                    Close();
+                }
             }
             
+        }
+
+        private void btn_switch_Click(object sender, RoutedEventArgs e)
+        {
+            if (exit_switch == 1)
+            {
+                btn_switch.Content = "Войти как клиент";
+                exit_switch = 0;
+            }
+            else if (exit_switch == 0)
+            {
+                btn_switch.Content = "Войти как сотрудник";
+                exit_switch = 1;
+            }
+           
+        }
+
+        private void btn_forgot_pass_Click(object sender, RoutedEventArgs e)
+        {
+                System.Diagnostics.Process.Start("https://steamuserimages-a.akamaihd.net/ugc/781853393499969252/26030625A363AFB677F475A413569B0CBB9CAFE5/");
         }
     }
 }
