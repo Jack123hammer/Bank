@@ -35,5 +35,12 @@ namespace Bank
                 dg_client.ItemsSource = db.Bank_account_number.Where(t=>t.id_account == client_in).ToList() ;
             
         }
+
+        private void btn_exit_Click(object sender, RoutedEventArgs e)
+        {
+            Authorization m = new Authorization();
+            m.Show();
+            Close();
+        }
     }
 }

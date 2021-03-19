@@ -5,20 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Главное окно клиента" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="#FFADFDA5">
+        Title="Главное окно клиента" Height="768" Width="1366" WindowStartupLocation="CenterScreen" Background="#FFADFDA5" ResizeMode="NoResize">
     <Grid>
-        <Button Content="Счета, выписки, управление" HorizontalAlignment="Left" Margin="600,40,0,0" VerticalAlignment="Top" Width="182" Height="27"/>
-        <Button Content="История" HorizontalAlignment="Left" Height="27" Margin="600,74,0,0" VerticalAlignment="Top" Width="182"/>
-        <Button Content="Дополнительные услуги" HorizontalAlignment="Left" Margin="600,108,0,0" VerticalAlignment="Top" Width="182" Height="27"/>
-        <DataGrid x:Name="dg_client" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="595" AutoGenerateColumns="False">
+        <Button Content="Счета, выписки, управление" Margin="0,88,10,0" VerticalAlignment="Top" Height="24" HorizontalAlignment="Right" Width="182"/>
+        <Button Content="История" Height="24" Margin="0,117,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="182"/>
+        <Button Content="Дополнительные услуги" Margin="0,146,10,0" VerticalAlignment="Top" Height="24" HorizontalAlignment="Right" Width="182"/>
+        <DataGrid x:Name="dg_client" AutoGenerateColumns="False" Margin="0,0,197,10" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding ID_Score}" Width="*" Header="Номер счета"/>
-                <DataGridTextColumn  Binding="{Binding Amount}" Width="*" Header="Сумма"/>
-                <DataGridTextColumn Binding="{Binding Account.Phone_number}" Width="*" Header="Телефон"/>
+                <DataGridTextColumn  Binding="{Binding type_of_agreement}" Width="*" Header="Тип договора"/>
+                <DataGridTextColumn  Binding="{Binding amount}" Width="*" Header="Сумма"/>
+                <DataGridTextColumn  Binding="{Binding type_of_currency}" Width="*" Header="Валюта"/>
+                <DataGridTextColumn Binding="{Binding Account.phone_number}" Width="*" Header="Телефон"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Выйти из программы" HorizontalAlignment="Left" Margin="600,388,0,0" VerticalAlignment="Top" Width="182" Height="22"/>
-        <Button Content="Сменить учетную запись" HorizontalAlignment="Left" Margin="600,360,0,0" VerticalAlignment="Top" Width="182" Height="22"/>
+        <Button x:Name="btn_exit" Content="Сменить учетную запись" Margin="0,10,10,0" VerticalAlignment="Top" Height="24" HorizontalAlignment="Right" Width="182" Click="btn_exit_Click"/>
 
     </Grid>
 </Window>
