@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Авторизация" Height="267" Width="549" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FFADFDA5">
+        Title="Авторизация" Height="267" Width="549" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
     <Grid>
         <Label Content="Вход в СтарБанк онлайн" Margin="0,10,0,0" VerticalAlignment="Top" Width="144" Height="25"/>
         <Label Content="Войти как клиент" HorizontalAlignment="Left" Margin="60,42,0,0" VerticalAlignment="Top"/>

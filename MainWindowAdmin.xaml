@@ -42,11 +42,11 @@
                             <DataGridTextColumn Binding="{Binding type_of_transaction}" Width="*" Header="Тип транзакции"/>
                             <DataGridTextColumn Binding="{Binding amount_of_transaction}" Width="*" Header="Количество"/>
                             <DataGridTextColumn Binding="{Binding date_time_of_transaction}" Width="*" Header="Дата и время"/>
-                            <DataGridTextColumn Binding="{Binding data_of_sender}" Width="*" Header="Счёт отправителя"/>
+                            <DataGridTextColumn Binding="{Binding Sender.id_score}" Width="*" Header="Счёт отправителя"/>
                             <DataGridTextColumn Binding="{Binding Sender.Bank_account_number.Account.Passport_data.last_name}" Header="Фамилия отправителя" Width="*"/>
                             <DataGridTextColumn Binding="{Binding Sender.Bank_account_number.Account.Passport_data.first_name}" Header="Имя отправителя" Width="*"/>
                             <DataGridTextColumn Binding="{Binding Sender.Bank_account_number.Account.Passport_data.second_Name}" Header="Отчество отправителя" Width="*"/>
-                            <DataGridTextColumn Binding="{Binding data_of_reciever}" Width="*" Header="Счёт получателя"/>
+                            <DataGridTextColumn Binding="{Binding Reciever.id_score}" Width="*" Header="Счёт получателя"/>
                             <DataGridTextColumn Binding="{Binding Reciever.Bank_account_number.Account.Passport_data.last_name}" Header="Фамилия получателя" Width="*"/>
                             <DataGridTextColumn Binding="{Binding Reciever.Bank_account_number.Account.Passport_data.first_name}" Header="Имя получателя" Width="*"/>
                             <DataGridTextColumn Binding="{Binding Reciever.Bank_account_number.Account.Passport_data.second_Name}" Header="Отчество получателя" Width="*"/>
@@ -112,6 +112,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button x:Name="btn_exit" Content="Выйти из ЛК" Margin="1278,10,10,0" VerticalAlignment="Top" Height="24" Click="btn_exit_Click"/>
+        <Button x:Name="btn_exit" Content="Выйти из ЛК" Margin="0,10,10,0" VerticalAlignment="Top" Height="24" Click="btn_exit_Click" HorizontalAlignment="Right" Width="72"/>
     </Grid>
 </Window>

@@ -32,8 +32,10 @@ namespace Bank
         public void Update()
         {
             
-                dg_client.ItemsSource = db.Bank_account_number.Where(t=>t.id_account == client_in).ToList() ;
-            
+                dg_client.ItemsSource = db.Bank_account_number.Where(t=>t.id_account == client_in).ToList();
+            DG_History.ItemsSource = db.Transaction.Where(t => t.Sender.Bank_account_number.id_account == client_in || t.Reciever.Bank_account_number.id_account == client_in).ToList();
+
+
         }
 
         private void btn_exit_Click(object sender, RoutedEventArgs e)
