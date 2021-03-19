@@ -22,7 +22,6 @@ namespace Bank
     
         public int ID_account { get; set; }
         public int id_passport_data { get; set; }
-        public int id_score { get; set; }
         public string phone_number { get; set; }
         public Nullable<int> type_of_clients { get; set; }
         public Nullable<int> id_organization { get; set; }

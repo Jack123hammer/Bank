@@ -21,9 +21,6 @@ namespace Bank
         }
     
         public int ID_sender { get; set; }
-        public string last_name { get; set; }
-        public string first_name { get; set; }
-        public string second_name { get; set; }
         public Nullable<int> id_password_data { get; set; }
         public Nullable<int> id_score { get; set; }
     

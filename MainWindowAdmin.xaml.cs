@@ -26,18 +26,90 @@ namespace Bank
             Update();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Authorization m = new Authorization();
-            m.Show();
-            
-        }
 
         public void Update()
         {
             DG_Account.ItemsSource = db.Bank_account_number.ToList();
             DG_History.ItemsSource = db.Transaction.ToList();
-            
+            DG_Clients.ItemsSource = db.Account.ToList();
+            DG_Employee.ItemsSource = db.Employers.ToList();
+        }
+
+        private void btn_exit_Click(object sender, RoutedEventArgs e)
+        {
+            Authorization m = new Authorization();
+            m.Show();
+            Close();
+        }
+
+        private void txbx_search_score_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txbx_search_score.Text !="")
+            {
+                DG_Account.ItemsSource = db.Bank_account_number.Where(t => t.Account.Passport_data.last_name == txbx_search_score.Text).ToList();
+            }
+            else
+            {
+                Update();
+            }
+        }
+
+        private void btn_search_score_reset_Click(object sender, RoutedEventArgs e)
+        {
+            txbx_search_score.Text = "";
+        }
+
+       
+
+        private void txbx_search_history_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txbx_search_history.Text != "")
+            {
+                DG_Account.ItemsSource = db.Transaction.Where(t => t.Sender.Passport_data.last_name == txbx_search_score.Text).ToList();
+            }
+            else
+            {
+                Update();
+            }
+        }
+
+        private void btn_search_history_reset_Click(object sender, RoutedEventArgs e)
+        {
+           txbx_search_history.Text = "";
+        }
+
+        private void txbx_search_client_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txbx_search_history.Text != "")
+            {
+                DG_Account.ItemsSource = db.Account.Where(t => t.Passport_data.last_name == txbx_search_score.Text).ToList();
+            }
+            else
+            {
+                Update();
+            }
+        }
+
+        private void btn_search_client_reset_Click(object sender, RoutedEventArgs e)
+        {
+          txbx_search_client.Text = "";
+        }
+
+        private void txbx_search_employee_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txbx_search_history.Text != "")
+            {
+                DG_Account.ItemsSource = db.Employers.Where(t => t.Passport_data.last_name == txbx_search_score.Text).ToList();
+            }
+            else
+            {
+                Update();
+            }
+        }
+
+        private void btn_search_employee_reset_Click(object sender, RoutedEventArgs e)
+        {
+            txbx_search_employee.Text = "";
         }
     }
 }

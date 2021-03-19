@@ -5,52 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bank"
         mc:Ignorable="d"
-        Title="Главное окно администратора" Height="450" Width="800" Closing="Window_Closing">
+        Title="Главное окно администратора" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <TabControl x:Name="TabControlAdmin" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="792">
+        <TabControl x:Name="TabControlAdmin" HorizontalAlignment="Left" Height="713" VerticalAlignment="Top" Width="1360" Margin="0,26,0,0">
             <TabItem Header="Список счетов" IsSelected="True">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="DG_Account" HorizontalAlignment="Left" Height="356" VerticalAlignment="Top" Width="786" AutoGenerateColumns="False">
+                    <DataGrid x:Name="DG_Account" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,10,35">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding ID_Score}" Width="*" Header="ИД счета"/>
                             <DataGridTextColumn Binding="{Binding List_of_types_of_agreements.name_of_type}" Width="*" Header="Тип договора"/>
                             <DataGridTextColumn Binding="{Binding id_account}" Width="*" Header="ИД клиента"/>
+                            <DataGridTextColumn Binding="{Binding Account.Passport_data.last_name}" Header="Фамилия" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Account.Passport_data.first_name}" Header="Имя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Account.Passport_data.second_Name}" Header="Отчество" Width="*"/>
                             <DataGridTextColumn Binding="{Binding amount}" Width="*" Header="Количество валюты"/>
                             <DataGridTextColumn Binding="{Binding type_of_currency}" Width="*" Header="Тип валюты"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="Btn_Add_Account" Content="Добавить" HorizontalAlignment="Left" Margin="531,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="Btn_Edit_Account" Content="Изменить" HorizontalAlignment="Left" Margin="621,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="Btn_Delete_Account" Content="Удалить" HorizontalAlignment="Left" Margin="711,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="62,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="10,357,0,0" VerticalAlignment="Top" Height="27"/>
-                    <Button Content="Сброс" HorizontalAlignment="Left" Margin="187,361,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+                    <Button x:Name="Btn_Add_Account" Content="Добавить" Margin="0,0,170,10" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+                    <Button x:Name="Btn_Edit_Account" Content="Изменить" Margin="0,0,90,10" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+                    <Button x:Name="Btn_Delete_Account" Content="Удалить" Margin="0,0,10,10" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+                    <TextBox x:Name="txbx_search_score" HorizontalAlignment="Left" Margin="62,0,0,10" TextWrapping="Wrap" Width="120" Height="24" VerticalAlignment="Bottom" TextChanged="txbx_search_score_TextChanged"/>
+                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="10,0,0,10" Height="24" VerticalAlignment="Bottom"/>
+                    <Button x:Name="btn_search_score_reset" Content="Сброс" HorizontalAlignment="Left" Margin="187,0,0,10" Width="75" Height="24" VerticalAlignment="Bottom" Click="btn_search_score_reset_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="История операций">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="DG_History" HorizontalAlignment="Left" Height="355" VerticalAlignment="Top" Width="786" AutoGenerateColumns="False">
+                    <DataGrid x:Name="DG_History" Height="650" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,10,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding ID_transaction}" Width="0.3*" Header="ИД"/>
                             <DataGridTextColumn Binding="{Binding type_of_currency}" Width="*" Header="Тип валюты"/>
                             <DataGridTextColumn Binding="{Binding type_of_transaction}" Width="*" Header="Тип транзакции"/>
                             <DataGridTextColumn Binding="{Binding amount_of_transaction}" Width="*" Header="Количество"/>
                             <DataGridTextColumn Binding="{Binding date_time_of_transaction}" Width="*" Header="Дата и время"/>
-                            <DataGridTextColumn Binding="{Binding data_of_sender}" Width="*" Header="Счёт отправителя "/>
-                            <DataGridTextColumn Binding="{Binding data_of_reciever}" Width="*" Header="Счёт получателя "/>
-                            
+                            <DataGridTextColumn Binding="{Binding data_of_sender}" Width="*" Header="Счёт отправителя"/>
+                            <DataGridTextColumn Binding="{Binding Sender.Bank_account_number.Account.Passport_data.last_name}" Header="Фамилия отправителя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Sender.Bank_account_number.Account.Passport_data.first_name}" Header="Имя отправителя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Sender.Bank_account_number.Account.Passport_data.second_Name}" Header="Отчество отправителя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding data_of_reciever}" Width="*" Header="Счёт получателя"/>
+                            <DataGridTextColumn Binding="{Binding Reciever.Bank_account_number.Account.Passport_data.last_name}" Header="Фамилия получателя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Reciever.Bank_account_number.Account.Passport_data.first_name}" Header="Имя получателя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Reciever.Bank_account_number.Account.Passport_data.second_Name}" Header="Отчество получателя" Width="*"/>
+
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button x:Name="Btn_Add_History" Content="Добавить" HorizontalAlignment="Left" Margin="531,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="Btn_Edit_History" Content="Изменить" HorizontalAlignment="Left" Margin="621,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="Btn_Delete_History" Content="Удалить" HorizontalAlignment="Left" Margin="711,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button Content="Удалить ВСЮ ИСТОРИЮ!!!" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Background="#FFF91212" Foreground="#FFF0E5E5"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="232,364,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="180,360,0,0" VerticalAlignment="Top" Height="27"/>
-                    <Button Content="Сброс" HorizontalAlignment="Left" Margin="357,364,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+                    <Button x:Name="Btn_Add_History" Content="Добавить" HorizontalAlignment="Right" Margin="0,0,170,10" VerticalAlignment="Bottom" Width="75" Height="24"/>
+                    <Button x:Name="Btn_Edit_History" Content="Изменить" Margin="0,0,90,10" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+                    <Button x:Name="Btn_Delete_History" Content="Удалить" Margin="0,0,10,10" Height="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+                    <TextBox x:Name="txbx_search_history" HorizontalAlignment="Left" Margin="61,0,0,10" TextWrapping="Wrap" Width="120" Height="24" VerticalAlignment="Bottom" TextChanged="txbx_search_history_TextChanged" />
+                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="10,0,0,10" Width="46" Height="24" VerticalAlignment="Bottom"/>
+                    <Button x:Name="btn_search_history_reset" Content="Сброс" HorizontalAlignment="Left" Margin="186,0,0,10" Width="74" Height="24" VerticalAlignment="Bottom" Click="btn_search_history_reset_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Список клиентов">
@@ -58,13 +66,25 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="DG_Clients" HorizontalAlignment="Left" Height="356" VerticalAlignment="Top" Width="786"/>
-                    <Button x:Name="Btn_Add_Client" Content="Добавить" HorizontalAlignment="Left" Margin="531,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="Btn_Edit_Client" Content="Изменить" HorizontalAlignment="Left" Margin="621,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button Content="Удалить" HorizontalAlignment="Left" Margin="711,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="62,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="10,357,0,0" VerticalAlignment="Top" Height="27"/>
-                    <Button Content="Сброс" HorizontalAlignment="Left" Margin="187,361,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+                    <DataGrid x:Name="DG_Clients" Height="650" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,10,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID_account}" Header="ИД аккаунта" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Passport_data.last_name}" Header="Фамилия" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Passport_data.first_name}" Header="Имя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Passport_data.second_Name}" Header="Отчество" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding phone_number}" Header="Телефон" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Types_of_clients.name_of_type_of_client}" Header="Тип клиента" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding id_organization}" Header="ИД организации" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Login}" Header="Логин" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Password}" Header="Пароль" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="Btn_Add_Client" Content="Добавить" HorizontalAlignment="Left" Margin="1108,651,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                    <Button x:Name="Btn_Edit_Client" Content="Изменить" HorizontalAlignment="Left" Margin="1188,651,0,0" VerticalAlignment="Top" Width="76" Height="24"/>
+                    <Button Content="Удалить" HorizontalAlignment="Left" Margin="1269,651,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                    <TextBox x:Name="txbx_search_client" HorizontalAlignment="Left" Height="24" Margin="62,651,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txbx_search_client_TextChanged"/>
+                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="10,651,0,0" VerticalAlignment="Top" Height="24"/>
+                    <Button x:Name="btn_search_client_reset" Content="Сброс" HorizontalAlignment="Left" Margin="187,651,0,0" VerticalAlignment="Top" Width="75" Height="24" Click="btn_search_client_reset_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Список сотрудников">
@@ -72,15 +92,26 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="DG_Employee" HorizontalAlignment="Left" Height="356" VerticalAlignment="Top" Width="786"/>
-                    <Button x:Name="Btn_Add_Employee" Content="Добавить" HorizontalAlignment="Left" Margin="532,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="Btn_Edit_Employee" Content="Изменить" HorizontalAlignment="Left" Margin="622,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Button x:Name="Btn_Delete_Employee" Content="Удалить" HorizontalAlignment="Left" Margin="711,361,0,0" VerticalAlignment="Top" Width="75"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="62,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="10,357,0,0" VerticalAlignment="Top" Height="27"/>
-                    <Button Content="Сброс" HorizontalAlignment="Left" Margin="187,361,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+                    <DataGrid x:Name="DG_Employee" Height="650" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True" Margin="0,0,10,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding ID_employee}" Header="ИД сотрудника" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding List_of_position.name_of_position}" Header="Должность" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding login}" Header="Логин" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding password}" Header="Пароль" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Passport_data.last_name}" Header="Фамилия" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Passport_data.first_name}" Header="Имя" Width="*"/>
+                            <DataGridTextColumn Binding="{Binding Passport_data.second_Name}" Header="Отчество" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="Btn_Add_Employee" Content="Добавить" HorizontalAlignment="Left" Margin="1109,651,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                    <Button x:Name="Btn_Edit_Employee" Content="Изменить" HorizontalAlignment="Left" Margin="1189,651,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                    <Button x:Name="Btn_Delete_Employee" Content="Удалить" HorizontalAlignment="Left" Margin="1269,651,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                    <TextBox x:Name="txbx_search_employee" HorizontalAlignment="Left" Height="24" Margin="62,651,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txbx_search_employee_TextChanged"/>
+                    <Label Content="Поиск:" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Height="24"/>
+                    <Button x:Name="btn_search_employee_reset" Content="Сброс" HorizontalAlignment="Left" Margin="187,651,0,0" VerticalAlignment="Top" Width="75" Height="24" Click="btn_search_employee_reset_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
+        <Button x:Name="btn_exit" Content="Выйти из ЛК" Margin="1278,10,10,0" VerticalAlignment="Top" Height="24" Click="btn_exit_Click"/>
     </Grid>
 </Window>

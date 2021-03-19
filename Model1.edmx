@@ -9,9 +9,8 @@
           <Key>
             <PropertyRef Name="ID_account" />
           </Key>
-          <Property Name="ID_account" Type="int" Nullable="false" />
+          <Property Name="ID_account" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_passport_data" Type="int" Nullable="false" />
-          <Property Name="id_score" Type="int" Nullable="false" />
           <Property Name="phone_number" Type="nvarchar" MaxLength="50" />
           <Property Name="type_of_clients" Type="int" />
           <Property Name="id_organization" Type="int" />
@@ -78,9 +77,6 @@
             <PropertyRef Name="ID_reciever" />
           </Key>
           <Property Name="ID_reciever" Type="int" Nullable="false" />
-          <Property Name="last_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="first_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="second_name" Type="nvarchar" MaxLength="50" />
           <Property Name="id_password_data" Type="int" />
           <Property Name="id_score" Type="int" />
         </EntityType>
@@ -89,9 +85,6 @@
             <PropertyRef Name="ID_sender" />
           </Key>
           <Property Name="ID_sender" Type="int" Nullable="false" />
-          <Property Name="last_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="first_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="second_name" Type="nvarchar" MaxLength="50" />
           <Property Name="id_password_data" Type="int" />
           <Property Name="id_score" Type="int" />
         </EntityType>
@@ -355,9 +348,8 @@
           <Key>
             <PropertyRef Name="ID_account" />
           </Key>
-          <Property Name="ID_account" Type="Int32" Nullable="false" />
+          <Property Name="ID_account" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_passport_data" Type="Int32" Nullable="false" />
-          <Property Name="id_score" Type="Int32" Nullable="false" />
           <Property Name="phone_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="type_of_clients" Type="Int32" />
           <Property Name="id_organization" Type="Int32" />
@@ -441,9 +433,6 @@
             <PropertyRef Name="ID_reciever" />
           </Key>
           <Property Name="ID_reciever" Type="Int32" Nullable="false" />
-          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="second_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="id_password_data" Type="Int32" />
           <Property Name="id_score" Type="Int32" />
           <NavigationProperty Name="Bank_account_number" Relationship="Self.FK_Reciever_Bank_account_number" FromRole="Reciever" ToRole="Bank_account_number" />
@@ -455,9 +444,6 @@
             <PropertyRef Name="ID_sender" />
           </Key>
           <Property Name="ID_sender" Type="Int32" Nullable="false" />
-          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="second_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="id_password_data" Type="Int32" />
           <Property Name="id_score" Type="Int32" />
           <NavigationProperty Name="Bank_account_number" Relationship="Self.FK_Sender_Bank_account_number" FromRole="Sender" ToRole="Bank_account_number" />
@@ -729,7 +715,6 @@
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="ID_account" ColumnName="ID_account" />
                 <ScalarProperty Name="id_passport_data" ColumnName="id_passport_data" />
-                <ScalarProperty Name="id_score" ColumnName="id_score" />
                 <ScalarProperty Name="phone_number" ColumnName="phone_number" />
                 <ScalarProperty Name="type_of_clients" ColumnName="type_of_clients" />
                 <ScalarProperty Name="id_organization" ColumnName="id_organization" />
@@ -803,9 +788,6 @@
             <EntityTypeMapping TypeName="Model.Reciever">
               <MappingFragment StoreEntitySet="Reciever">
                 <ScalarProperty Name="ID_reciever" ColumnName="ID_reciever" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="second_name" ColumnName="second_name" />
                 <ScalarProperty Name="id_password_data" ColumnName="id_password_data" />
                 <ScalarProperty Name="id_score" ColumnName="id_score" />
               </MappingFragment>
@@ -815,9 +797,6 @@
             <EntityTypeMapping TypeName="Model.Sender">
               <MappingFragment StoreEntitySet="Sender">
                 <ScalarProperty Name="ID_sender" ColumnName="ID_sender" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="second_name" ColumnName="second_name" />
                 <ScalarProperty Name="id_password_data" ColumnName="id_password_data" />
                 <ScalarProperty Name="id_score" ColumnName="id_score" />
               </MappingFragment>
